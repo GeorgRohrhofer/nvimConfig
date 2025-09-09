@@ -3,30 +3,8 @@ local lsp = require('lsp-zero')
 lsp.preset('recommended')
 
 lsp.ensure_installed({
-  'omnisharp',
   'rust_analyzer',
   'clangd'
-})
-
-require('mason').setup({})
-require('mason-lspconfig').setup({
-    ensure_installed = { 'omnisharp' },
-    handlers = {
-        lsp.default_setup,
-        omnisharp = function()
-            require('lspconfig').omnisharp.setup({
-                cmd = {
-                    vim.fn.stdpath("data") .. "/mason/bin/omnisharp",
-                    "--languageserver",
-                    "--hostPID",
-                    tostring(vim.fn.getpid())
-                },
-                enable_roslyn_analyzers = true,
-                organize_imports_on_format = true,
-                enable_import_completion = true,
-            })
-        end,
-    }
 })
 
 local cmp = require('cmp')
@@ -51,6 +29,10 @@ lsp.on_attach(function(client, bufnr)
   vim.keymap.set("n", "<leader>vrr", function() vim.lsp.buf.references() end, opts)
   vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
   vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
+  vim.keymap.set('n', 'gK', function()
+      local new_config = not vim.diagnostic.config().virtual_text
+      vim.diagnostic.config({ virtual_text = new_config })
+  end, { desc = 'Toggle diagnostic virtual_lines' })
 end)
 
 lsp.setup()

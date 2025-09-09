@@ -13,8 +13,8 @@ return require('packer').startup(function(use)
 
   use "nvim-lua/plenary.nvim"
 
-  use({ 'rose-pine/neovim', as = 'rose-pine' })
-  vim.cmd('colorscheme rose-pine')
+  use({ 'folke/tokyonight.nvim', as = 'tokyonight' })
+  vim.cmd('colorscheme tokyonight-storm')
 
   use {
         'nvim-treesitter/nvim-treesitter',
