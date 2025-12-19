@@ -27,6 +27,13 @@ return require('packer').startup(function(use)
   use('tpope/vim-fugitive')
 
   use {
+    "supermaven-inc/supermaven-nvim",
+    config = function()
+      require("supermaven-nvim").setup({})
+    end,
+  }
+
+  use {
   'VonHeikemen/lsp-zero.nvim',
   branch = 'v1.x',
   requires = {
